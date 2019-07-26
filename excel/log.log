@@ -1,0 +1,10 @@
+ 2018-10-31 14:25:30,797 - INFO E:\PycharmProjects\learnPython\excel\compare.py
+ 2018-10-31 14:25:30,797 - INFO E:\PycharmProjects\learnPython\excel
+ 2018-10-31 14:46:22,089 - INFO sheet_name = ตฺ1าณ
+ 2018-10-31 14:56:40,025 - INFO sheet_name = ตฺ1าณ
+ 2018-10-31 14:56:40,025 - INFO 'ReadOnlyWorksheet' object has no attribute 'columns'
+ 2018-10-31 14:56:54,017 - INFO sheet_name = ตฺ1าณ
+ 2018-10-31 14:56:54,018 - INFO 'ReadOnlyWorksheet' object has no attribute 'columns'
+ 2018-10-31 14:57:53,420 - INFO 'ReadOnlyWorksheet' object has no attribute 'columns'
+ 2018-10-31 15:05:14,081 - INFO 'ReadOnlyWorksheet' object is not callable
+ 2018-10-31 16:45:30,661 - INFO save() missing 1 required positional argument: 'filename'

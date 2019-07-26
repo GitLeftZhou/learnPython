@@ -1,0 +1,763 @@
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000969','ProLRegist','PolicyNo','【理赔报案信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000970','ProLRegist','RegistNo','同一<公司编码><保单编号>下，【理赔报案信息表】中的<立案状态代码>为“1-已立案”时，【理赔报案信息表】中的<报案编号>在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000972','ProLRegist','ReportTime','【理赔结案信息表】中的<理赔结论代码>为“01-正常给付”时，同一<公司编码><保单编号>下，【责任险保单扩展信息表】中的<索赔基础代码>为“02-期内索赔式”，同一<交易编码><保单编号>下，【理赔报案信息表】中的<报案时间>小于等于【保单基本信息表】中的<终保时间>', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000973','ProLRegist','ReportTime','同一<公司编码><保单编号>下，【责任险保单扩展信息表】中的<索赔基础代码>为“01-期内发生式”时，【理赔报案信息表】表中的<报案时间>小于等于【责任险保单扩展信息表】中的<报告止期>', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000974','ProLRegist','AccIdentTime','同一<公司编码><保单编号>下，【责任险保单扩展信息表】中的<索赔基础代码>为“02-期内索赔式”，同一<公司编码><保单编号>下，【理赔报案信息表】中的<出险时间>小于等于【保单基本信息表】中的<终保时间>', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000975','ProLRegist','AccIdentTime','同一<公司编码><保单编号>下，【责任险保单扩展信息表】中的<索赔基础代码>为“01-期内发生式”时，同一<公司编码><保单编号>下，【理赔报案信息表】中的<出险时间>小于等于【保单基本信息表】中的<终保时间>，大于等于【保单基本信息表】中的<起保时间>', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000976','ProLRegist','AccIdentTime','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不为11时，同一<公司编码><保单编号>下，【理赔报案信息表】中的<出险时间>小于等于【保单基本信息表】中的<终保时间>，大于等于【保单基本信息表】中的<起保时间>', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000977','ProLRegist','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，同一<公司编码><保单编号>下，【理赔报案信息表】中的<财产险出险原因代码>非空时，特殊情况下才可以为“999-其他”', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000978','ProLRegist','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，同一<公司编码><保单编号>下，【理赔报案信息表】中的<财产险出险原因代码>不可为空', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000979','ProLRegist','RSDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，同一<公司编码><保单编号>下，【理赔报案信息表】中的<人身险出险原因分类代码>非空时，特殊情况下才可以为“9-其他”', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000980','ProLRegist','RSDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔报案信息表】中的<人身险出险原因分类代码>不可为空', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000981','ProLRegist','ClaimType','同一<保单编号><报案编号>下，【理赔结案信息表】中的<小额赔付标志>为“1-是”时，【理赔报案信息表】中的<赔案类别代码>不应为“03-疑难”', A.Transactionno,'H' FROM ProLRegist A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000982','ProLRegistDeal','PolicyNo','【理赔报案处理信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLRegistDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000983','ProLRegistDeal','RegistNo','【理赔报案处理信息表】中的<报案编号>在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLRegistDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000984','ProLRegistDeal','RegistNo','同一<公司编码><保单编号>下，【理赔报案处理信息表】中的<报案处理类型代码>为“01-立案处理”时，【理赔报案处理信息表】中的<报案编号>在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLRegistDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000985','ProLRegistDeal','DealTime','同一<交易编码><保单编号><报案编号>下，【理赔报案处理信息表】中的<报案处理时间>大于等于【理赔报案信息表】中的<报案时间>', A.Transactionno,'H' FROM ProLRegistDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000986','ProLRegistDeal','RegistCancelRecoverDate','同一<交易编码><保单编号><报案编号>下，【理赔报案处理信息表】中的<报案注销恢复时间>非空时，大于等于【理赔报案信息表】中的<报案时间>', A.Transactionno,'H' FROM ProLRegistDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000987','ProLClaimOpinion','PolicyNo','【理赔立案信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000988','ProLClaimOpinion','RegistNo','同一<交易编码><保单编号>下，【理赔立案信息表】中的<报案编号>在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000989','ProLClaimOpinion','ClaimDate','同一<交易编码><保单编号><报案编号>下，【理赔立案信息表】中的<立案时间>大于等于【理赔报案信息表】中的<报案时间>', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000990','ProLClaimOpinion','AccIdentTime','同一<交易编码><保单编号><报案编号>下，【理赔立案信息表】中的<出险时间>等于【理赔报案信息表】中的<出险时间>', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000991','ProLClaimOpinion','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，同一<保单编号>下，【理赔立案信息表】中的<财产险出险原因代码>非空时，特殊情况下才可以为“999-其他”', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000992','ProLClaimOpinion','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，同一<公司编码><保单编号>下，【理赔立案信息表】中的<财产险出险原因代码>不可为空', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000993','ProLClaimOpinion','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔立案信息表】中的<财产险出险原因代码>必须为空', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000994','ProLClaimOpinion','RSDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔立案信息表】中的<人身险出险原因分类代码>非空时，特殊情况下才可以为“9-其他”', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000995','ProLClaimOpinion','RSDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔立案信息表】中的<人身险出险原因分类代码>不可为空', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000996','ProLClaimOpinion','RSDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，同一<保单编号>下，【理赔立案信息表】中的<人身险出险原因分类代码>必须为空', A.Transactionno,'H' FROM ProLClaimOpinion A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000997','ProLClaimOpinionDeal','PolicyNo','【理赔立案处理信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLClaimOpinionDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000998','ProLClaimOpinionDeal','ClmNo','同一<公司编码><交易编码><保单编号>下，【理赔立案处理信息表】中的<立案编号>在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLClaimOpinionDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_000999','ProLClaimOpinionDeal','ClaimDealTime','同一<交易编码><保单编号>下，【理赔立案处理信息表】中的<立案处理时间>大于等于【理赔立案信息表】中的<立案时间>', A.Transactionno,'H' FROM ProLClaimOpinionDeal A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001000','ProLClaim','TransactionNo','【理赔结案信息表】中的<交易编码>在【保单基本信息表】的<交易编码>中存在', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001001','ProLClaim','PolicyNo','【理赔结案信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001002','ProLClaim','RegistNo','同一<交易编码><公司编码><保单编号>下，【理赔结案信息表】中的<报案编号>非空时，在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001003','ProLClaim','ClmNo','同一<交易编码><公司编码><保单编号>下，【理赔结案信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001004','ProLClaim','DamageAddressTypeCode','同一<公司编码><保单编号><报案编号>下，【理赔报案信息表】中的<赔案类别代码>为“04-通赔”时，【理赔结案信息表】中的<出险地区代码>非空时，同一<公司编码><保单编号>下，【保单基本信息表】中的<承保地区代码>与【理赔结案信息表】中的<出险地区代码>不一致', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001005','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不为15或16时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>非空时，特殊情况下才可以为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001006','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不为15或16时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001007','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>必须为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001008','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>为“03000-家财险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>第一位为（1-自然灾害，2-地质灾害，3-意外事故）中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001009','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>为“05000-船舶险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>第一位为（1-自然灾害，2-地质灾害，3-意外事故）中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001010','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为“20信用保险”，且不为“20280-海外投资保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“701-买方拖欠、702-买方拒收、703-买方破产、704-买方无正当理由拒绝履行合同、705-开证行拖欠、706-开证行破产、707-开证行拒绝承兑、708-政治风险、799-其他信用险出险原因、999-其他”中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001011','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为“20-信用保险”，且不为“20280-海外投资保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>，特殊情况下才可以为“799-其他信用险出险原因、999-其他”中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001012','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应的【产品信息表】中的<险类代码>为“21113-购房贷款保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001013','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应的【产品信息表】中的<险类代码>为“21223-雇员忠诚保证保险”，且同一<公司编码><保单编号>下，【理赔结案信息表】中的<理赔结论代码>为“01-正常给付”时，<财产险出险原因代码>为“142-雇员不诚实”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001014','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前为“20280-海外投资保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>应为“708-政治风险，799-其他信用险出险原因，999-其他”中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001015','ProLClaim','CHDamageCode','【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前为“20280-海外投资保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>，特殊情况下才可以为“799-其他信用险出险原因，999-其他”中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001016','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21112-购车贷款保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001017','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21221-产品质量保证保险”，且同一<公司编码><保单编号>下，【理赔结案信息表】中<理赔结论代码>为“01-正常给付”时，<财产险出险原因代码>为“141-产品缺陷”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001018','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21121-小额/小微企业贷款保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001019','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21123-融资租赁企业贷（借）款保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001020','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21211-诉讼保全保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001021','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21224-诉讼保全类保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001022','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21222-单用途商业预付卡履约保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001023','ProLClaim','CHDamageCode','同一<公司编码>下，【保单基本信息表】中<产品编号>对应的【产品信息表】中的<险类代码>为“21111-消费类贷（借）款保证保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“999-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001024','ProLClaim','CHDamageCode','同一<交易编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前2位为11时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>第一位为“1-自然灾害，2-地质灾害，3-意外事故”中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001025','ProLClaim','CHDamageCode','同一<交易编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>为“11430-董监事高管责任保险”时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<财产险出险原因代码>为“172-董事高管责任”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001026','ProLClaim','CHDamageCode','同一<公司编码>下，【国内货运险_国内业务信息表】中的<保单编号>在【理赔结案信息表】的<保单编号>中存在时，【理赔结案信息表】中的<财产险出险原因代码>第一位为“1-自然灾害，3-意外事故”中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001027','ProLClaim','CHDamageCode','同一<公司编码>下，【进出口货运险_进出口业务信息表】中的<保单编号>在【理赔结案信息表】的<保单编号>中存在，【理赔结案信息表】中<财产险出险原因代码>第一位为“1-自然灾害，3-意外事故”中的一个', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001028','ProLClaim','DamageType','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<人身险出险原因代码>非空时，特殊情况下才可以为“9-其他”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001029','ProLClaim','DamageType','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<人身险出险原因代码>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001030','ProLClaim','DamageType','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不为15或16时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<人身险出险原因代码>必须为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001031','ProLClaim','StandPay','同一<交易编码><保单编号><赔案编号>下，【理赔结案信息表】中的<核算赔付金额>等于【理赔明细信息表】中<核算赔付金额>之和（尾差1元以内）', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001032','ProLClaim','SumExpAmount','同一<交易编码><保单编号><赔案编号>下，【理赔结案信息表】中的<直接理赔费用总金额>非空时等于【理赔费用信息表】中<费用归属类型代码>为“01-直接理赔费用”的<理赔费用金额>之和（尾差1元以内）', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001033','ProLClaim','EndCaseTime','同一<公司编码><交易编码><保单编号>下，【理赔结案信息表】中的<结案时间>大于等于【理赔立案信息表】中的<立案时间>', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001035','ProLClaim','RecoveryFlag','同一<交易编码><保单编号><赔案编号>下，【理赔明细信息表】中的<追偿案件标志>全部为“0-否”时，【理赔结案信息表】中的<追偿案件标志>为“0-否”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001036','ProLClaim','RecoveryFlag','同一<交易编码><保单编号><赔案编号>下，【理赔明细信息表】中的<追偿案件标志>不全为“0-否”时，【理赔结案信息表】中的<追偿案件标志>为“1-是”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001037','ProLClaim','MicroClmFlag','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前三位为151时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<小额赔付标志>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001038','ProLClaim','MicroClmFlag','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不为15或16时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<小额赔付标志>必须为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001039','ProLClaim','MicroClmFlag','同一<交易编码><公司编码><保单编号><报案编号>下，【理赔报案信息表】中的<赔案类别代码>为“03-疑难”时，【理赔结案信息表】中的<小额赔付标志>为“0-否”', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001040','ProLClaim','RefusePayRCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，且同一<公司编码><保单编号>下，【理赔结案信息表】中的<理赔结论代码>为“04-拒赔”时，<拒付原因代码>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001041','ProLClaim','CRefusalTime','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前三位为151时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<理赔结论代码>为“04-拒赔”时，<拒赔通知时间>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001042','ProLClaim','UWThroughtTime','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前三位为151时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<核赔通过时间>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001043','ProLClaim','CApplyTime','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前三位为151时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<索赔申请时间>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001045','ProLClaim','AffixGetDate','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前三位为151时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<资料接收齐全时间>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001046','ProLClaim','SurveyStartDate','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，同一<公司编码><保单编号>下，【理赔结案信息表】中的<调查标志>为“1-是”时，<调查开始日期>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001047','ProLClaim','SurveyEndDate','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，同一<公司编码><保单编号>下，【理赔结案信息表】中的<调查标志>为“1-是”时，<调查结束日期>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001048','ProLClaim','HospitalRegionCode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前三位为151时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<医院所属地代码>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001049','ProLClaim','HospitalRegion','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前三位为151时，同一<公司编码><保单编号>下，【理赔结案信息表】中的<医院所属地>不可为空', A.Transactionno,'H' FROM ProLClaim A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001050','ProLClaimPolicy','TransactionNo','【理赔明细信息表】中的<交易编码>在【保单基本信息表】的<交易编码>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001051','ProLClaimPolicy','PolicyNo','【理赔明细信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001052','ProLClaimPolicy','RegistNo','同一<保单编号>下，【理赔明细信息表】中的<报案编号>非空时，在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001053','ProLClaimPolicy','ClmNo','同一<保单编号>下，【理赔明细信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001054','ProLClaimPolicy','CaseNo','同一<保单编号>下，【理赔明细信息表】中的<住院标志>为“1-是”时，在【理赔费用信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001055','ProLClaimPolicy','CaseNo','同一<保单编号>下，【理赔明细信息表】中的<住院标志>为“1-是”时，在【理赔医疗收据信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001056','ProLClaimPolicy','CaseNo','同一<保单编号>下，【理赔明细信息表】中的<住院标志>为“1-是”时，在【理赔医疗费用信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001057','ProLClaimPolicy','CaseNo','同一<保单编号>下，【理赔明细信息表】中的<住院标志>为“1-是”时，在【理赔医疗费用明细信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001058','ProLClaimPolicy','CaseNo','同一<保单编号>下，【理赔明细信息表】中的<住院标志>为“1-是”时，在【疾病信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001059','ProLClaimPolicy','RiskCode','同一<交易编码><公司编码><保单编号>下，【理赔明细信息表】的<产品编号>在【保单标的责任信息表】的<产品编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001060','ProLClaimPolicy','ClauseCode','同一<交易编码><公司编码><保单编号>下，【理赔明细信息表】的<条款编号>在【保单标的责任信息表】的<条款编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001061','ProLClaimPolicy','Classification','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<人身险责任类别代码>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001062','ProLClaimPolicy','Classification','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔明细信息表】中的<人身险责任类别代码>必须为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001063','ProLClaimPolicy','KindCode','同一<交易编码><公司编码><保单编号>下，【理赔明细信息表】的<责任编号>非空时，在【保单标的责任信息表】的<责任编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001064','ProLClaimPolicy','ItemKindNo','同一<交易编码><保单编号>下，【理赔明细信息表】的<保单标的责任序号>非空时，在【保单标的责任信息表】中<保单标的责任序号>存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001065','ProLClaimPolicy','ItemTypeCode','同一<公司编码>下，【理赔明细信息表】的<标的项目类别编号>非空时，在【条款标的关系信息表】的<标的项目类别编号>中存在', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001066','ProLClaimPolicy','ItemDetailName','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔明细信息表】中的<标的项目类别名称>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001067','ProLClaimPolicy','LossItemName','同一<公司编码>下，当【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔明细信息表】中的<受损标的名称>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001068','ProLClaimPolicy','UnitLossQuantity','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，<受损标的数量>在非空时大于等于0', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001069','ProLClaimPolicy','UnitLossQuantity','【理赔明细信息表】中的<受损标的数量>在<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，同一<交易编码><保单编号><标的项目类别编号>下，【理赔明细信息表】中的<受损标的数量>小于等于【保单标的责任信息表】中的<标的数量>', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001071','ProLClaimPolicy','ItemValueOrigCur','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔明细信息表】中的<标的价值原币币别代码>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001072','ProLClaimPolicy','UnitSumLoss','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，<受损金额>在非空时大于等于0', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001073','ProLClaimPolicy','UnitSumDefLoss','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，<核定损金额>在非空时大于等于0', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001074','ProLClaimPolicy','DepreRate','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<总折旧率>必须为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001075','ProLClaimPolicy','UnderwriteEndDate','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔明细信息表】中的<核赔完成日期>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001076','ProLClaimPolicy','UnderwriteEndDate','同一<交易编码><保单编号><赔案编号>下【理赔明细信息表】中的<核赔完成日期>小于等于【理赔结案信息表】中的<结案时间>', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001077','ProLClaimPolicy','PFStatus','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔明细信息表】中的<赔付完成标志>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001078','ProLClaimPolicy','RecoveryFlag','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<追偿案件标志>为空或者为“0-否”', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001079','ProLClaimPolicy','GiveType','【理赔明细信息表】中的<理赔结论代码>数据范围与对应《业务代码表》，特殊情况下才可以为“99-其他”', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001080','ProLClaimPolicy','GiveType','同一<交易编码><保单编号><赔案编号><赔款计算书编号><产品编号><责任编号>下，【理赔人伤明细信息表】中的<理赔结论代码>存在“04-拒赔以外的代码”时，【理赔明细信息表】的<理赔结论代码>不可为“04-拒赔”', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001081','ProLClaimPolicy','RefusePayRCode','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<拒付原因代码>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001082','ProLClaimPolicy','GetDutyKind','【理赔明细信息表】中的在<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<赔付责任类型代码>非空时，特殊情况下才可以为“306-其他赔付”', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001083','ProLClaimPolicy','GetDutyKind','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<赔付责任类型代码>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001084','ProLClaimPolicy','LossFeeType','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔明细信息表】中的<损伤外部原因代码>必须为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001085','ProLClaimPolicy','CriticalIllnessCode','【理赔明细信息表】中的在<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<重大疾病代码>非空时，特殊情况下才可以为“999-其它重大疾病”', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001086','ProLClaimPolicy','CriticalIllnessCode','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，且对应<赔付责任类型代码>为“104-意外大病，204-疾病大病”其中的一个时，【理赔明细信息表】中的<重大疾病代码>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001087','ProLClaimPolicy','ClaimRate','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<赔付比例>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001088','ProLClaimPolicy','ClaimRatioEnd','【理赔明细信息表】中的<赔付比例上限>在<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<赔付比例上限>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001089','ProLClaimPolicy','IsHospitalFlag','【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔明细信息表】中的<住院标志>不可为空', A.Transactionno,'H' FROM ProLClaimPolicy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001090','ProLClaimInjuryDetail','TransactionNo','【理赔人伤明细信息表】中的<交易编码>在【保单基本信息表】的<交易编码>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001091','ProLClaimInjuryDetail','PolicyNo','同一<交易编码>下，【理赔人伤明细信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001092','ProLClaimInjuryDetail','RegistNo','同一<交易编码><保单编号>下，【理赔人伤明细信息表】中的<报案编号>非空时，在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001093','ProLClaimInjuryDetail','ClmNo','同一<交易编码><保单编号>下，【理赔人伤明细信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001094','ProLClaimInjuryDetail','CaseNo','同一<交易编码><保单编号>下，【理赔人伤明细信息表】中的<赔案编号>在【理赔明细信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001095','ProLClaimInjuryDetail','CompensateNo','同一<交易编码><保单编号><赔案编号>下，【理赔人伤明细信息表】中的<赔款计算书编号>在【理赔明细信息表】的<赔款计算书编号>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001096','ProLClaimInjuryDetail','ItemKindNo','同一<交易编码><保单编号>下，【理赔人伤明细信息表】中的<保单标的责任序号>非空时，在【保单标的责任信息表】中的<保单标的责任序号>范围之内', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001097','ProLClaimInjuryDetail','RiskCode','同一<交易编码><保单编号>下，【理赔人伤明细信息表】中的<产品编号>在【保单标的责任信息表】中的<产品编号>范围之内', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001098','ProLClaimInjuryDetail','ClauseCode','同一<交易编码><保单编号>下，【理赔人伤明细信息表】中的<条款编号>在【保单标的责任信息表】中的<条款编号>范围之内', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001099','ProLClaimInjuryDetail','ClauseCode','同一<公司编码>下，【理赔人伤明细信息表】中的<条款编号>和<产品编号>的匹配关系在【产品条款关系信息表】的<条款编号>和<产品编号>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001100','ProLClaimInjuryDetail','KindCode','同一<交易编码><保单编号>下，【理赔人伤明细信息表】中的<责任编号>非空时，在【保单标的责任信息表】中的<责任编号>范围之内', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001101','ProLClaimInjuryDetail','KindCode','同一<公司编码>下，【理赔人伤明细信息表】中的<责任编号>和<条款编号>的匹配关系在【条款责任关系信息表】的<责任编号>和<条款编号>中存在', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001102','ProLClaimInjuryDetail','UnderwriteEndDate','同一<公司编码>下，【理赔人伤明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔人伤明细信息表】中的<核赔完成日期>不可为空', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001103','ProLClaimInjuryDetail','PFStatus','同一<公司编码>下，【理赔人伤明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位不等于15或16时，【理赔人伤明细信息表】中的<赔付完成标志>不可为空', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001104','ProLClaimInjuryDetail','RefusePayRCode','【理赔人伤明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔人伤明细信息表】中的<拒付原因代码>不可为空', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001105','ProLClaimInjuryDetail','GetDutyKind','【理赔人伤明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔人伤明细信息表】中的<赔付责任类型代码>不可为空', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001106','ProLClaimInjuryDetail','CriticalIllnessCode','【理赔人伤明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16且<赔付责任类型代码>为“104-意外大病，204-疾病大病”时，【理赔人伤明细信息表】中的<重大疾病代码>不可为空', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001107','ProLClaimInjuryDetail','ClaimRate','【理赔人伤明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔人伤明细信息表】中的<赔付比例>不可为空', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001108','ProLClaimInjuryDetail','ClaimRatioEnd','【理赔人伤明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，【理赔人伤明细信息表】中的<赔付比例上限>不可为空', A.Transactionno,'H' FROM ProLClaimInjuryDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001109','ProLClaimExpense','TransactionNo','【理赔费用信息表】中的<交易编码>在【保单基本信息表】的<交易编码>中存在', A.Transactionno,'H' FROM ProLClaimExpense A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001110','ProLClaimExpense','PolicyNo','同一<交易编码><保单编号>下，【理赔费用信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLClaimExpense A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001111','ProLClaimExpense','RegistNo','同一<交易编码><保单编号>下，【理赔费用信息表】中的<报案编号>非空时，在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLClaimExpense A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001112','ProLClaimExpense','ClmNo','同一<交易编码><保单编号>下，【理赔费用信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLClaimExpense A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001113','ProLClaimExpense','CompensateNo','同一<交易编码><保单编号><赔案编号>下，【理赔费用信息表】中的<赔款计算书编号>在【理赔明细信息表】的<赔款计算书编号>中存在', A.Transactionno,'H' FROM ProLClaimExpense A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001114','ProLClaimExpense','ItemKindNo','同一<交易编码><保单编号>下，【理赔费用信息表】中的<保单标的责任序号>非空时，在【保单标的责任信息表】的<保单标的责任序号>中存在', A.Transactionno,'H' FROM ProLClaimExpense A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001115','ProLBnf','TransactionNo','【理赔自然人受益人信息表】中的<交易编码>在【保单基本信息表】的<交易编码>中存在', A.Transactionno,'H' FROM ProLBnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001116','ProLBnf','PolicyNo','【理赔自然人受益人信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLBnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001117','ProLBnf','RegistNo','同一<交易编码><保单编号>下，【理赔自然人受益人信息表】中的<报案编号>非空时，在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLBnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001118','ProLBnf','ClmNo','同一<交易编码><保单编号>下，【理赔自然人受益人信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLBnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001119','ProLBnf','InsuredNo','同一<公司编码><保单编号>下，【保单基本信息表】中<无人名单标志>为“0-否”时，【理赔自然人受益人信息表】中的<被保人客户编号>数据在【保单自然人被保险人信息表】的<被保险人客户编号>中存在', A.Transactionno,'H' FROM ProLBnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001120','ProLGrpbnf','PolicyNo','【理赔非自然人受益人信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001121','ProLGrpbnf','PolicyNo','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔非自然人受益人信息表】中的<保单编号>在【保单非自然人受益人信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001122','ProLGrpbnf','RegistNo','同一<交易编码><保单编号>下，【理赔非自然人受益人信息表】中的<报案编号>非空时，在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001123','ProLGrpbnf','ClmNo','同一<交易编码><保单编号>下，【理赔非自然人受益人信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001125','ProLGrpbnf','IDType','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<公司编码><保单编号>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件类型代码>为“1-组织机构代码证、2-税务登记证、3-营业执照、10-统一社会信用代码”中的一个', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001126','ProLGrpbnf','IDNo','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，且同一<保单编号>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件类型代码>为“3-营业执照”时，同一<保单编号><受益人受益顺序代码>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件号码>与【保单非自然人受益人信息表】中<受益人营业执照号码>非空时，一致', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001127','ProLGrpbnf','IDNo','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，且同一<保单编号>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件类型代码>为“2-税务登记证”时，同一<保单编号><受益人受益顺序代码>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件号码>与【保单非自然人受益人信息表】中<受益人税务登记证号>非空时，一致', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001128','ProLGrpbnf','IDNo','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，且同一<保单编号>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件类型代码>为“1-组织机构代码证”时，同一<保单编号><受益人受益顺序代码>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件号码>与【保单非自然人受益人信息表】中<受益人组织机构代码>非空时，一致', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001129','ProLGrpbnf','IDNo','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16，且同一<保单编号>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件类型代码>为“10-统一社会信用代码”时，同一<保单编号><受益人受益顺序代码>下，【理赔非自然人受益人信息表】中的<非自然人受益人/领款人证件号码>与【保单非自然人受益人信息表】中<受益人统一社会信用证号>非空时，一致', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001131','ProLGrpbnf','CaseGetMode','同一<公司编码>下，【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16时，同一<保单编号>下，【理赔非自然人受益人信息表】中的<保险金领取方式代码>不可为空', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001132','ProLGrpbnf','CasePayMode','【理赔非自然人受益人信息表】中的<保险金支付方式代码>非空时，特殊情况下才可以为“99-其他”', A.Transactionno,'H' FROM ProLGrpbnf A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001133','ProLReceipt','PolicyNo','【理赔医疗收据信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001135','ProLReceipt','RegistNo','同一<交易编码><保单编号>下，【理赔医疗收据信息表】中的<报案编号>非空时在【理赔报案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001136','ProLReceipt','ClmNo','同一<交易编码><保单编号>下，【理赔医疗收据信息表】中的<立案编号>非空时在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001137','ProLReceipt','ClaimantNo','同一<交易编码><保单编号>下，【保单基本信息表】中的<无人名单标志>为“0-否”时，且【保单基本信息表】中的<保单团个性质代码>为“01-个人”时，【理赔医疗收据信息表】中的<出险人客户编号>在【保单自然人被保险人信息表】中<被保险人客户编号>范围之内', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001138','ProLReceipt','LossName','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗收据信息表】中的<出险人姓名>与【出险人信息表】中的<出险人姓名>一致
+', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001139','ProLReceipt','LossSex','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗收据信息表】中的<出险人性别代码>与【出险人信息表】中的<出险人性别代码>一致', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001140','ProLReceipt','LossBirthDate','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗收据信息表】中的<出险人出生日期>与【出险人信息表】中的<出险人出生日期>一致', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001141','ProLReceipt','LossIdentifyType','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗收据信息表】中的<出险人证件类型代码>与【出险人信息表】中的<出险人证件类型代码>一致', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001142','ProLReceipt','LossIdentifyNo','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗收据信息表】中的<出险人证件号码>与【出险人信息表】中的<出险人证件号码>一致', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001143','ProLReceipt','HospitalCode','同一<交易编码><保单编号><赔案编号>下，【理赔医疗收据信息表】中的<医院代码>在【理赔明细信息表】的<医院代码>（非空时）存在', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001144','ProLReceipt','HospitalName','同一<交易编码><保单编号><赔案编号>下，【理赔医疗收据信息表】中的<医院名称>在【理赔明细信息表】的<医院名称>（非空时）存在', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001145','ProLReceipt','HospitalRegionCode','同一<交易编码><保单编号><赔案编号><医院代码>下，【理赔医疗收据信息表】中的<医院所属地代码>与【理赔结案信息表】中的<医院所属地代码>非空时一致', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001146','ProLReceipt','HospitalRegion','同一<交易编码><保单编号><赔案编号><医院代码>下，【理赔医疗收据信息表】中的<医院所属地>与【理赔结案信息表】中的<医院所属地>非空时一致', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001147','ProLReceipt','OperationFlag','【理赔医疗收据信息表】中的<手术标志>为“1-是”时，【理赔费用信息表】、【理赔医疗收据信息表】、【理赔医疗费用信息表】、【理赔医疗费用明细信息表】、【疾病信息表】、【手术信息表】中的<交易编码>、<保单编号>、<赔案编号>数据一致', A.Transactionno,'H' FROM ProLReceipt A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001148','ProLMedicalFee','PolicyNo','【理赔医疗费用信息表】中的<保单编号>在【理赔医疗收据信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001149','ProLMedicalFee','PolicyNo','【理赔医疗费用信息表】中的<保单编号>在该保单对应【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001150','ProLMedicalFee','RegistNo','同一<交易编码><保单编号>下，【理赔医疗费用信息表】中的<报案编号>非空时在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001151','ProLMedicalFee','ClmNo','同一<交易编码><保单编号>下，【理赔医疗费用信息表】中的<立案编号>非空时在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001152','ProLMedicalFee','CaseNo','同一<交易编码><保单编号>下，【理赔医疗费用信息表】中的<赔案编号>在【理赔医疗收据信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001153','ProLMedicalFee','ReceiptNo','同一<交易编码><赔案编号>下，【理赔医疗费用信息表】中的<收据编号>在【理赔医疗收据信息表】的<收据编号>中存在', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001154','ProLMedicalFee','CostItemCode','同一<交易编码><保单编号><赔案编号><收据编号>下，【理赔医疗收据信息表】中的<收据医疗类型代码>为“1-门诊，4-体检”时，【理赔医疗费用信息表】中的<医疗费用类型代码>不为“14-手术费，18-床位费，21-生育费”', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001155','ProLMedicalFee','ClaimantNo','同一<交易编码><保单编号><赔案编号><收据编号>下，【理赔医疗费用信息表】中的<出险人客户编号>在与【理赔医疗收据信息表】中的<出险人客户编号>数据一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001156','ProLMedicalFee','ClaimantNo','同一<交易编码><保单编号>下，【理赔医疗费用信息表】中的<出险人客户编号>在【保单自然人被保险人信息表】的<被保险人客户编号>中存在', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001157','ProLMedicalFee','LossName','同一<交易编码><保单编号><赔案编号><收据编号><出险人客户编号>下，【理赔医疗费用信息表】中的<出险人姓名>与【理赔医疗收据信息表】中的<出险人姓名>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001158','ProLMedicalFee','LossName','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗费用信息表】中的<出险人姓名>与【出险人信息表】中的<出险人姓名>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001159','ProLMedicalFee','LossSex','同一<交易编码><保单编号><赔案编号><收据编号><出险人客户编号>下，【理赔医疗费用信息表】中的<出险人性别代码>与【理赔医疗收据信息表】中的<出险人性别代码>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001160','ProLMedicalFee','LossSex','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗费用信息表】中的<出险人性别代码>与【出险人信息表】中的<出险人性别代码>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001161','ProLMedicalFee','LossBirthDate','同一<交易编码><保单编号><赔案编号><收据编号><出险人客户编号>下，【理赔医疗费用信息表】中的<出险人出生日期>与【理赔医疗收据信息表】中的<出险人出生日期>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001162','ProLMedicalFee','LossBirthDate','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗费用信息表】中的<出险人出生日期>与【出险人信息表】中的<出险人出生日期>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001163','ProLMedicalFee','LossIdentifyType','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗费用信息表】中的<出险人证件类型代码>与【出险人信息表】的<出险人证件类型代码>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001164','ProLMedicalFee','LossIdentifyNo','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【理赔医疗费用信息表】中<出险人证件号码>与【出险人信息表】的<出险人证件号码>一致', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001165','ProLMedicalFee','FeeAmount','同一<交易编码><保单编号><赔案编号><收据编号>下，【理赔医疗费用信息表】中的<费用金额>的累计值等于【理赔医疗收据信息表】中的<费用金额>累计值（尾差1元以内）', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001166','ProLMedicalFee','FeeDeductibleAmount','同一<交易编码><保单编号><赔案编号><收据编号>下，【理赔医疗费用信息表】中的<费用扣减金额>的累计值等于【理赔医疗收据信息表】中的<费用扣减金额>累计值（尾差1元以内）', A.Transactionno,'H' FROM ProLMedicalFee A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001167','ProLMedicalFeeDetail','PolicyNo','【理赔医疗费用明细信息表】中的<保单编号>在【理赔医疗费用信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001168','ProLMedicalFeeDetail','PolicyNo','【理赔医疗费用明细信息表】中的<保单编号>在该保单对应【保单基本信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为15或16', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001169','ProLMedicalFeeDetail','RegistNo','同一<保单编号>下，【理赔医疗费用明细信息表】中的<报案编号>非空时，在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001170','ProLMedicalFeeDetail','ClmNo','同一<保单编号>下，【理赔医疗费用明细信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001171','ProLMedicalFeeDetail','CaseNo','同一<保单编号>下，【理赔医疗费用明细信息表】中的<赔案编号>在【理赔医疗费用信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001172','ProLMedicalFeeDetail','ReceiptNo','同一<公司编码><交易编码><保单编号><赔案编号>下，【理赔医疗费用明细信息表】中的<收据编号>在【理赔医疗费用信息表】的<收据编号>中存在', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001173','ProLMedicalFeeDetail','ReceiptNo','【理赔医疗费用明细信息表】中的<收据编号>在同一<赔案编号>下与【理赔医疗收据信息表】中的数据一致', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001174','ProLMedicalFeeDetail','FeeAmount','同一<交易编码><保单编号><收据编号><医疗费用类型代码>下，【理赔医疗费用明细信息表】中的<费用金额>累计之和等于【理赔医疗费用信息表】中的<费用金额>的累计之和（尾差1元以内）', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001175','ProLMedicalFeeDetail','FeeDeductibleAmount','同一<交易编码><保单编号><收据编号><医疗费用类型代码>下，【理赔医疗费用明细信息表】中的<费用扣减金额>累计之和等于【理赔医疗费用信息表】中的<费用扣减金额>的累计之和（尾差1元以内）', A.Transactionno,'H' FROM ProLMedicalFeeDetail A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001176','ProLClaimantInfo','TransactionNo','【出险人信息表】中的<交易编码>在【保单基本信息表】中的<交易编码>中存在', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001177','ProLClaimantInfo','PolicyNo','【出险人信息表】中的<保单编号>在【保单基本信息表】中的<保单编号>中存在', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001178','ProLClaimantInfo','RegistNo','【出险人信息表】中的<报案编号>非空时，在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001179','ProLClaimantInfo','ClmNo','【出险人信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001181','ProLClaimantInfo','LossName','同一<公司编码><保单编号>下，【保单基本信息表】中的<无人名单标志>为“0-否”时，【出险人信息表】中的<出险人客户编号>与【保单自然人被保险人信息表】中<被保人客户编号>一致时，【出险人信息表】中的<出险人姓名>与【保单自然人被保险人信息表】中的<被保险人中文名称>一致', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001182','ProLClaimantInfo','LossSex','【出险人信息表】中的<出险人性别代码>，特殊情况下才可以为“0-未知的性别”', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001183','ProLClaimantInfo','LossSex','【出险人信息表】中的<出险人性别代码>，特殊情况下才可以为“9-未说明的性别”', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001184','ProLClaimantInfo','LossSex','同一<公司编码><保单编号>下，【保单基本信息表】中的<无人名单标志>为“0-否”时，【出险人信息表】中<出险人客户编号>与【保单自然人被保险人信息表】中<被保人客户编号>相等时，【出险人信息表】中的<出险人性别代码>与【保单自然人被保险人信息表】中的<被保险人性别代码>一致', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001185','ProLClaimantInfo','LossBirthDate','同一<公司编码><保单编号>下，【保单基本信息表】中的<无人名单标志>为“0-否”时，同一<公司编码><保单编号>下，【出险人信息表】中<出险人客户编号>与【保单自然人被保险人信息表】中<被保人客户编号>相等时，【出险人信息表】中的<出险人出生日期>与【保单自然人被保险人信息表】中的<被保险人出生日期>一致', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001186','ProLClaimantInfo','LossIdentifyType','同一<交易编码><保单编号>下，【保单基本信息表】中的<无人名单标志>为“0-否”时，【出险人信息表】中<出险人客户编号>与【保单自然人被保险人信息表】中<被保人客户编号>相等时，【出险人信息表】中的<出险人证件类型代码>与【保单自然人被保险人信息表】中的<被保险人证件类型代码>一致', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001187','ProLClaimantInfo','LossIdentifyNo','同一<公司编码><保单编号>下，【保单基本信息表】中的<无人名单标志>为“0-否”时，【出险人信息表】中<出险人客户编号>与【保单自然人被保险人信息表】中<被保人客户编号>相等时，【出险人信息表】中的<出险人证件号码>与【保单自然人被保险人信息表】中的<被保险人证件号码>一致', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001188','ProLClaimantInfo','DieFlag','同一<公司编码>下，【理赔明细信息表】中的<产品编号>对应【产品信息表】中的<险类代码>前两位为16时，同一<交易编码><保单编号><赔案编号>下，【理赔明细信息表】中的<人身险责任类别代码>为“0100-身故”时，【出险人信息表】中的<死亡标志>至少有一个为“1-是”', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001189','ProLClaimantInfo','deathDate','【出险人信息表】中的<死亡日期>小于等于【理赔结案信息表】中的<结案时间>', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001190','ProLClaimantInfo','deathDate','同一<公司编码><赔案编号><出险人客户编号>下，【出险人信息表】中的<死亡标志>为‘1’时，<死亡日期>大于等于【理赔结案信息表】中的<出险时间>', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001191','ProLClaimantInfo','DeathReasonCode','【出险人信息表】中的<死亡原因代码>非空时，特殊情况下才可以为“9-其他”', A.Transactionno,'H' FROM ProLClaimantInfo A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001192','ProLOperation','PolicyNo','【手术信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001193','ProLOperation','RegistNo','同一<公司编码><交易编码><保单编号>下，【手术信息表】中的<报案编号>非空时，在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001194','ProLOperation','ClmNo','同一<公司编码><交易编码><保单编号>下，【手术信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001195','ProLOperation','CaseNo','同一<保单编号>下，【手术信息表】中的<赔案编号>在【出险人信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001196','ProLOperation','HospitalCode','同一<保单编号><赔案编号>下，【手术信息表】中的<医院代码>在【理赔医疗收据信息表】的<医院代码>中存在', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001197','ProLOperation','LossName','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【手术信息表】中的<出险人姓名>与【出险人信息表】中的<出险人姓名>一致', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001198','ProLOperation','LossSex','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【手术信息表】中的<出险人性别代码>与【出险人信息表】中的<出险人性别代码>一致', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001199','ProLOperation','LossBirthDate','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【手术信息表】中的<出险人出生日期>与【出险人信息表】中的<出险人出生日期>数据一致', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001200','ProLOperation','LossIdentifyType','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【手术信息表】中的<出险人证件类型代码>与【出险人信息表】中的<出险人证件类型代码>数据一致', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001201','ProLOperation','LossIdentifyNo','同一<交易编码><保单编号><赔案编号><出险人客户编号>下，【手术信息表】中的<出险人证件号码>与【出险人信息表】中的<出险人证件号码>数据一致', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001202','ProLOperation','HospitalName','同一<交易编码><保单编号><赔案编号>下，【手术信息表】的<医院名称>在【理赔医疗收据信息表】的<医院名称>中存在', A.Transactionno,'H' FROM ProLOperation A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001203','ProLDisease','TransactionNo','【疾病信息表】中的<交易编码>在【保单基本信息表】的<交易编码>中存在', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001204','ProLDisease','PolicyNo','【疾病信息表】中的<保单编号>在【保单基本信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001205','ProLDisease','RegistNo','【疾病信息表】中的<报案编号>非空时，在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001206','ProLDisease','ClmNo','【疾病信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001207','ProLDisease','CaseNo','同一<交易编码><保单编号>下，【疾病信息表】中的<赔案编号>在【出险人信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001208','ProLDisease','HospitalCode','同一<保单编号><赔案编号>下，【疾病信息表】中的<医院代码>在【理赔医疗收据信息表】的<医院代码>中存在', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001209','ProLDisease','LossName','同一<交易编码><保单编号><赔案编号><出险人客户编号>，【疾病信息表】中的<出险人姓名>与【出险人信息表】中的<出险人姓名>一致', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001210','ProLDisease','LossSex','同一<交易编码><保单编号><赔案编号><出险人客户编号>，【疾病信息表】中的<出险人性别代码>与【出险人信息表】中的<出险人性别代码>一致', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001211','ProLDisease','LossBirthDate','同一<交易编码><保单编号><赔案编号><出险人客户编号>，【疾病信息表】中的<出险人出生日期>与【出险人信息表】中的<出险人出生日期>一致', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001212','ProLDisease','LossIdentifyType','同一<交易编码><保单编号><赔案编号><出险人客户编号>，【疾病信息表】中的<出险人证件类型代码>与【出险人信息表】中的<出险人证件类型代码>一致', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001213','ProLDisease','LossIdentifyNo','同一<交易编码><保单编号><赔案编号><出险人客户编号>，【疾病信息表】中的<出险人证件号码>与【出险人信息表】中的<出险人证件号码>一致', A.Transactionno,'H' FROM ProLDisease A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001214','ProLReplevy','PolicyNo','【理赔结案信息表】中<追偿案件标志>为“1-是”时，【理赔追偿信息表】中的<保单编号>在【理赔结案信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001215','ProLReplevy','RegistNo','同一<公司编码><交易编码><保单编号>下，【理赔追偿信息表】中的<报案编号>非空时，在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001216','ProLReplevy','ClmNo','同一<公司编码><交易编码><保单编号>下，【理赔追偿信息表】中的<立案编号>非空时，在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001217','ProLReplevy','CaseNo','同一<保单编号>下，【理赔结案信息表】中<追偿案件标志>为“1-是”时，【理赔追偿信息表】中的<赔案编号>在【理赔结案信息表】的<赔案编号>中存在', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001218','ProLReplevy','ClauseCode','同一<公司编码>下，【理赔追偿信息表】中的<条款编号>在【条款信息表】的<条款编号>中存在', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001219','ProLReplevy','KindCode','同一<公司编码><条款编号>下，【理赔追偿信息表】中的<责任编号>非空时在【条款责任关系信息表】的<责任编号>中存在', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001220','ProLReplevy','RecoveryIdentifyType','【理赔追偿信息表】中的<被追偿方证件类型代码>在<被追偿方类型代码>为“2-个人”时，数据范围与对应《业务代码表》中“个人身份证件类型代码”定义数据范围相匹配', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001221','ProLReplevy','RecoveryIdentifyType','【理赔追偿信息表】中的<被追偿方证件类型代码>在<被追偿方类型代码>为“1-团体”时，数据范围与对应《业务代码表》中“组织机构常用证件类型代码”定义数据范围相匹配', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001222','ProLReplevy','RecoveryDate','同一<交易编码><保单编号><赔案编号>下，【理赔追偿信息表】中的<追偿日期>大于等于【理赔结案信息表】中的<结案时间>', A.Transactionno,'H' FROM ProLReplevy A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001223','ProLCoins','PolicyNo','【理赔联共保赔付信息表】中的<保单编号>在【保单联共保信息表】的<保单编号>中存在', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001224','ProLCoins','PolicyNo','同一<交易编码><保单编号>下，【理赔联共保赔付信息表】对应的【保单基本信息表】中的<联共保类型代码>不为“01-非联非共”', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001225','ProLCoins','RegistNo','同一<公司编码><交易编码><保单编号>下，【理赔联共保赔付信息表】中的<报案编号>非空时在【理赔立案信息表】的<报案编号>中存在', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001226','ProLCoins','ClmNo','同一<公司编码><交易编码><保单编号>下，【理赔联共保赔付信息表】中的<立案编号>非空时在【理赔立案信息表】的<立案编号>中存在', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001228','ProLCoins','RiskCode','同一<公司编码>下，【理赔联共保赔付信息表】中的<产品编号>在【产品信息表】的<产品编号>中存在', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001229','ProLCoins','RiskCode','同一<交易编码><保单编号>下，【理赔联共保赔付信息表】中的<产品编号>在【保单标的责任信息表】的<产品编号>中存在', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001230','ProLCoins','ClauseCode','同一<公司编码>下，【理赔联共保赔付信息表】中的<条款编号>非空时，同一<产品编号>下，【理赔联共保赔付信息表】中的<条款编号>在【产品条款关系信息表】的<条款编号>中存在', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
+INSERT INTO BDDJ3_CHECK_RESULT SELECT 'PRP_3rd_P_A_O_001231','ProLCoins','KindCode','同一<公司编码><条款编号>下，【理赔联共保赔付信息表】中的<责任编号>和<条款编号>非空时，【理赔联共保赔付信息表】中的<责任编号>在【条款责任关系信息表】的<责任编号>中存在', A.Transactionno,'H' FROM ProLCoins A WHERE A.Batchno IN (SELECT BATCHNO FROM BDDJ3_CHECK_BATCHNO) 
+; 
+
