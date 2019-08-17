@@ -155,11 +155,12 @@ class NovelSpider:
             bgn_idx = 0
             title_name = None
             if idx is not None:
-                if isinstance(idx, int):
+                if idx.isdigit():
                     bgn_idx = int(idx)
                 else:
                     title_name = idx
             (novel_name, bgn_idx) = self.__parse_menu_html(title_name)
+            print((novel_name, bgn_idx))
             filename = novel_name + ".txt"
             path = "files/"
             if not os.path.isdir(path):
@@ -184,12 +185,13 @@ class NovelSpider:
 if __name__ == "__main__":
 
     # url = "https://www.88dush.com/xiaoshuo/103/103884/"
+    main_page = "https://www.88dush.com"
     url = input("输入目录页的网址:\r\n") + "\r\n"
-    if url is not None and len(url) > 10:
+    if url is not None and url.startswith("main_page"):
         a = NovelSpider(url.strip())
         index = input("输入 [起始章节序号/起始章节名称]:\r\n")
         a.spider(index)
         print("================小说下载完了==================")
         # print(a.menu_url)
     else:
-        print("网址输入错误")
+        print("错误的网址，目前只支持：" + main_page)
