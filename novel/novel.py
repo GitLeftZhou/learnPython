@@ -30,13 +30,13 @@ class NovelSpider:
             # response = requests.get(req_url)
             response = session.get(req_url, headers=headers)
             # 解析网页中的字符集定义
-            tmpHtml = bs4.BeautifulSoup(str(response.text), "html5lib")
+            tmp_html = bs4.BeautifulSoup(str(response.text), "html5lib")
             # print(tmpHtml)
-            meta_charsets = tmpHtml.find_all(NovelSpider.__has_charset)
+            meta_charsets = tmp_html.find_all(NovelSpider.__has_charset)
             # 默认GBK，大多数小说网站都是用的GBK
             html_charset = "gbk"
             if meta_charsets is None or len(meta_charsets) == 0:
-                meta_charsets = tmpHtml.find_all("meta", content=re.compile("charset"))
+                meta_charsets = tmp_html.find_all("meta", content=re.compile("charset"))
                 meta_charset = meta_charsets[0]
                 # print("meta_charset", end=" : ")
                 # print(meta_charset)
@@ -57,41 +57,40 @@ class NovelSpider:
             print("获取网页文本", ex)
         return res
 
-    def __parse_menu_html(self):
+    def __parse_menu_html(self, title_name):
         """
         解析首页，拿到小说名字，第一章节链接
         :return:
         """
+        novel_name = ""
+        mark_index = 0
         try:
             res = self.request_url(self.menu_url)
-            menuHtml = bs4.BeautifulSoup(str(res), "html.parser")
+            menu_html = bs4.BeautifulSoup(str(res), "html.parser")
             # body > div.jieshao > div.rt
-            title = menuHtml.select("div.rt h1")
+            title = menu_html.select("div.rt h1")
             novel_name = str(title[0].text)
             print("novel_name :    " + novel_name)
-            li_lists = menuHtml.select("div.mulu ul li")
+            li_lists = menu_html.select("div.mulu ul li")
             for li_tag in li_lists:
                 a_tag = li_tag.find("a")
-                # print("a_tag is ", end=" ")
-                # print(type(a_tag))
                 if a_tag is not None:
                     name = a_tag.text
-                    # if "不可控的未来" in name:
-                    #     print(len(self.url_names))
+                    if title_name is not None and title_name in name:
+                        mark_index = len(self.url_names)
                     self.url_names.append(name)
                     url = a_tag["href"]
                     # self.urls.append(tag.children.get("href")) # 方法1
                     self.urls.append(url)  # 方法2
-                    # print("-------------------")
-                    # print(name+":  "+url)
+
         except Exception as ex:
             print("解析首页时异常", ex)
-        return novel_name
+        return novel_name, mark_index
 
-    def __parse_content_html(self, cur_url, *cnts):
+    def __parse_content_html(self, cur_url, *counts):
         content = ""
-        if cnts is not None and len(cnts) > 0:
-            cnt = cnts[0]
+        if counts is not None and len(counts) > 0:
+            cnt = counts[0]
         else:
             cnt = 0
         try:
@@ -141,7 +140,7 @@ class NovelSpider:
         :param name:
         :return:
         """
-        file_name = ""
+        # file_name = ""
         if name is None or len(name) == 0:
             file_name = "novel.txt"
         else:
@@ -151,17 +150,20 @@ class NovelSpider:
             f.write(text1)  # 追加内容
             f.write('\n\n')  # 换两行
 
-    def spider(self, *idx):
+    def spider(self, idx):
         try:
-            novel_name = self.__parse_menu_html()
+            bgn_idx = 0
+            title_name = None
+            if idx is not None:
+                if isinstance(idx, int):
+                    bgn_idx = int(idx)
+                else:
+                    title_name = idx
+            (novel_name, bgn_idx) = self.__parse_menu_html(title_name)
             filename = novel_name + ".txt"
             path = "files/"
             if not os.path.isdir(path):
                 os.mkdir(path)
-            if idx is None or len(idx)==0:
-                bgn_idx = 0
-            else:
-                bgn_idx = int(idx[0])
             with open(path + filename, 'w', encoding='utf-8') as f:
                 f.write(str(novel_name) + self.menu_url + '\n')  # 写入名字并换行
                 for i in range(bgn_idx, len(self.urls)):
@@ -185,8 +187,8 @@ if __name__ == "__main__":
     url = input("输入目录页的网址:\r\n") + "\r\n"
     if url is not None and len(url) > 10:
         a = NovelSpider(url.strip())
-        idx = input("输入起始章节序号:\r\n")
-        a.spider(idx)
+        index = input("输入 [起始章节序号/起始章节名称]:\r\n")
+        a.spider(index)
         print("================小说下载完了==================")
         # print(a.menu_url)
     else:
