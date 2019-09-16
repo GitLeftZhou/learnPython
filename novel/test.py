@@ -1,50 +1,35 @@
-def num2ch(b_num: int):
-    if b_num == 0:
-        return ""
-    elif b_num == 1:
-        return "一"
-    elif b_num == 2:
-        return "二"
-    elif b_num == 3:
-        return "三"
-    elif b_num == 4:
-        return "四"
-    elif b_num == 5:
-        return "五"
-    elif b_num == 6:
-        return "六"
-    elif b_num == 7:
-        return "七"
-    elif b_num == 8:
-        return "八"
-    elif b_num == 9:
-        return "九"
+import random
+from concurrent.futures import ThreadPoolExecutor, wait, ALL_COMPLETED, FIRST_COMPLETED, as_completed
+import time
+
+"""
+线程池的几种使用方式
+"""
 
 
-def num_weight(b_num: int):
-    if b_num == 0:
-        return ""
-    elif b_num == 1:
-        return "十"
-    elif b_num == 2:
-        return "百"
-    elif b_num == 3:
-        return "千"
-    elif b_num == 4:
-        return "万"
-    elif b_num == 8:
-        return "亿"
-    return num_weight(b_num % 4)
+# 参数times用来模拟网络请求的时间
+def get_html(num):
+    sleep = 1  # random.randint(0, 5)
+    time.sleep(sleep)
+    print("get page {} finished".format(num))
+    return num
 
 
-num = "10000000"
-idx = 0
-return_str = ""
-for i in range(len(num) - 1, -1, -1):
-    ni = num[i]
-    # print(ni)
-    return_str = num2ch(int(ni)) + num_weight(idx) + return_str
+executor = ThreadPoolExecutor(max_workers=3)
+urls = [2, 3, 4, 5, 6, 7]  # 并不是真的url
 
-# print(return_str)
-    idx += 1
-print(return_str)
+# all_task = [executor.submit(get_html, (url)) for url in urls]
+
+# 这个方式将所有的future保存,结果会根据urls顺序输出
+# wait(all_task, return_when=ALL_COMPLETED)
+# for task in all_task:
+#     print("result page {} has been finished".format(task.result()))
+# print("main completed")
+
+# 这个方式没有排序
+# for future in as_completed(all_task):
+#     data = future.result()
+#     print("in main: get page {} success".format(data))
+
+for data in executor.map(get_html, urls[2:]):
+    print("in main: get page {} success".format(data))

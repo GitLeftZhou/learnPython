@@ -1,6 +1,8 @@
 # coding:utf-8
 import os
 import re
+import sys
+from concurrent.futures.thread import ThreadPoolExecutor
 from threading import Thread
 
 import bs4
@@ -134,6 +136,12 @@ class NovelSpider:
         return True
 
     def spider(self, novel_name, bgn_idx):
+        """
+        串行方式抓取
+        :param novel_name:
+        :param bgn_idx:
+        :return:
+        """
         try:
             filename = novel_name + ".txt"
             path = "files/"
@@ -155,14 +163,56 @@ class NovelSpider:
             return False
         return True
 
-    def __get_content_threading(self):
-        # 创建线程01，不指定参数
-        # thread_01 = Thread(target=main, args=("MING",))
-        # 启动线程01
-        # thread_01.start()
+    def concurrent_spider(self, novel_name, bgn_idx, max_workers):
+        """
+        并行方式获取
+        :param novel_name: 文件名
+        :param bgn_idx: 起始章节序号
+        :param max_workers: 并行数
+        :return:
+        """
+        try:
+            filename = novel_name + ".txt"
+            path = "files/"
+            if not os.path.isdir(path):
+                os.mkdir(path)
+            executor = ThreadPoolExecutor(max_workers=max_workers)
+            with open(path + filename, 'w', encoding='utf-8') as f:
+                f.write(str(novel_name) + self.menu_url + '\n')  # 写入名字并换行
+                for content in executor.map(self.__get_content, range(bgn_idx, len(self.urls)), self.urls[bgn_idx:]):
+                    f.write(content + '\r\n')  # 追加内容 换行
+
+        except Exception as ex:
+            print("保存小说时发生异常", ex)
+            return False
+        return True
+
+    def __get_content(self, url_index, target_url):
+        """
+        拼装每个章节的内容
+        :param url_index: 章节序号
+        :param target_url: 章节地址
+        :return: 章节标题+章节内容
+        """
+        result_data = ""
+        if "第" not in str(self.url_names[url_index]):
+            result_data = result_data + str("第" + str(url_index) + "章 ")
+        result_data = result_data + str(self.url_names[url_index]) + "\r\n"
+
+        content = self.__parse_content_html(str(self.menu_url + "" + target_url))
+        result_data = result_data + content.replace("\r", "").replace("\n", "").strip()
+        print("抓取[{}]完成".format(self.url_names[url_index]))
+
+        return result_data
 
     def get_bgn_idx(self, idx):
+        """
+        获取起始章节序号
+        :param idx:
+        :return:
+        """
         bgn_idx = 0
+        title_name = None
         if idx is not None:
             if idx.isdigit():
                 bgn_idx = int(idx)
@@ -185,7 +235,18 @@ if __name__ == "__main__":
         a = NovelSpider(url.strip())
         index = input("输入 [起始章节序号/起始章节名称]:\r\n")
         (file_name, begin_idx) = a.get_bgn_idx(index)
-        a.spider(file_name, begin_idx)
+        workers = input("输入并行数(不能超过5个):\r\n")
+        if workers is not None and workers.isdigit():
+            if int(workers) > 5:
+                print("并发数不能超过5")
+                sys.exit(0)
+        else:
+            print("输入字符不合法,只能为5以下的整数")
+            sys.exit(0)
+        if int(workers) < 2:
+            a.spider(file_name, begin_idx)
+        else:
+            a.concurrent_spider(file_name, begin_idx, int(workers))
         print("================小说下载完了==================")
         # print(a.menu_url)
     else:
