@@ -176,9 +176,11 @@ class NovelSpider:
             path = "files/"
             if not os.path.isdir(path):
                 os.mkdir(path)
+            # 初始化线程池
             executor = ThreadPoolExecutor(max_workers=max_workers)
             with open(path + filename, 'w', encoding='utf-8') as f:
-                f.write(str(novel_name) + self.menu_url + '\n')  # 写入名字并换行
+                f.write(str(novel_name) + self.menu_url + '\n')  # 写入文件名并换行
+                # 使用线程池map方式执行, 可以顺序的获取到结果
                 for content in executor.map(self.__get_content, range(bgn_idx, len(self.urls)), self.urls[bgn_idx:]):
                     f.write(content + '\r\n')  # 追加内容 换行
 
@@ -195,14 +197,15 @@ class NovelSpider:
         :return: 章节标题+章节内容
         """
         result_data = ""
+        # 处理标题
         if "第" not in str(self.url_names[url_index]):
-            result_data = result_data + str("第" + str(url_index) + "章 ")
+            result_data = result_data + "第{}章 ".format(url_index)
         result_data = result_data + str(self.url_names[url_index]) + "\r\n"
-
+        # 抓取内容并处理
         content = self.__parse_content_html(str(self.menu_url + "" + target_url))
         result_data = result_data + content.replace("\r", "").replace("\n", "").strip()
-        print("抓取[{}]完成".format(self.url_names[url_index]))
-
+        # 返回内容
+        print("抓取 [{}] 完成".format(self.url_names[url_index]))
         return result_data
 
     def get_bgn_idx(self, idx):
