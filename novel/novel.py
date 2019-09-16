@@ -1,6 +1,7 @@
 # coding:utf-8
 import os
 import re
+from threading import Thread
 
 import bs4
 import requests
@@ -79,8 +80,8 @@ class NovelSpider:
                     if title_name is not None and title_name in name:
                         mark_index = len(self.url_names)
                     self.url_names.append(name)
-                    url = a_tag["href"]
                     # self.urls.append(tag.children.get("href")) # 方法1
+                    url = a_tag["href"]
                     self.urls.append(url)  # 方法2
 
         except Exception as ex:
@@ -132,35 +133,8 @@ class NovelSpider:
             return False
         return True
 
-    def __write_txt(self, text1, path, *name):
-        """
-        写入TXT文档
-        :param text1:
-        :param path:
-        :param name:
-        :return:
-        """
-        # file_name = ""
-        if name is None or len(name) == 0:
-            file_name = "novel.txt"
-        else:
-            file_name = name[0]
-        with open(path + file_name, 'a', encoding='utf-8') as f:
-            f.write(str(file_name) + '\n')  # 写入名字并换行
-            f.write(text1)  # 追加内容
-            f.write('\n\n')  # 换两行
-
-    def spider(self, idx):
+    def spider(self, novel_name, bgn_idx):
         try:
-            bgn_idx = 0
-            title_name = None
-            if idx is not None:
-                if idx.isdigit():
-                    bgn_idx = int(idx)
-                else:
-                    title_name = idx
-            (novel_name, bgn_idx) = self.__parse_menu_html(title_name)
-            print((novel_name, bgn_idx))
             filename = novel_name + ".txt"
             path = "files/"
             if not os.path.isdir(path):
@@ -172,7 +146,7 @@ class NovelSpider:
                     print("抓取 " + self.url_names[i], end=" ")
                     content = self.__parse_content_html(str(self.menu_url + "" + next_url))
                     if "第" not in str(self.url_names[i]):
-                        f.write("第"+str(i)+"章")
+                        f.write("第" + str(i) + "章 ")
                     f.write(str(self.url_names[i]) + "\r\n")  # 写入章节名字
                     f.write(content + '\r\n')  # 追加内容 换行
                     print(" 完成")
@@ -181,6 +155,25 @@ class NovelSpider:
             return False
         return True
 
+    def __get_content_threading(self):
+        # 创建线程01，不指定参数
+        # thread_01 = Thread(target=main, args=("MING",))
+        # 启动线程01
+        # thread_01.start()
+
+    def get_bgn_idx(self, idx):
+        bgn_idx = 0
+        if idx is not None:
+            if idx.isdigit():
+                bgn_idx = int(idx)
+            else:
+                title_name = idx
+        (novel_name, mark_idx) = self.__parse_menu_html(title_name)
+        if mark_idx is not None and mark_idx > 0:
+            bgn_idx = mark_idx
+        print((novel_name, bgn_idx))
+        return novel_name, bgn_idx
+
 
 # 运行入口
 if __name__ == "__main__":
@@ -188,10 +181,11 @@ if __name__ == "__main__":
     # url = "https://www.88dush.com/xiaoshuo/103/103884/"
     main_page = "https://www.88dush.com"
     url = input("输入目录页的网址:\r\n") + "\r\n"
-    if url is not None and url.startswith("main_page"):
+    if url is not None and url.startswith(main_page):
         a = NovelSpider(url.strip())
         index = input("输入 [起始章节序号/起始章节名称]:\r\n")
-        a.spider(index)
+        (file_name, begin_idx) = a.get_bgn_idx(index)
+        a.spider(file_name, begin_idx)
         print("================小说下载完了==================")
         # print(a.menu_url)
     else:
