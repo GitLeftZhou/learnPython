@@ -168,7 +168,8 @@ class NovelSpider:
                     next_url = self.urls[i]
                     print("抓取 " + self.url_names[i], end=" ")
                     content = self.__parse_content_html(str(self.menu_url + "" + next_url))
-                    # f.write("第"+str(i)+"章 ")
+                    if "第" not in str(self.url_names[i]):
+                        f.write("第"+str(i)+"章")
                     f.write(str(self.url_names[i]) + "\r\n")  # 写入章节名字
                     f.write(content + '\r\n')  # 追加内容 换行
                     print(" 完成")
