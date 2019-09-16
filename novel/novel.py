@@ -2,8 +2,8 @@
 import os
 import re
 import sys
+import time
 from concurrent.futures.thread import ThreadPoolExecutor
-from threading import Thread
 
 import bs4
 import requests
@@ -230,27 +230,27 @@ class NovelSpider:
 
 # 运行入口
 if __name__ == "__main__":
-
-    # url = "https://www.88dush.com/xiaoshuo/103/103884/"
+    begin_time = time.time()
     main_page = "https://www.88dush.com"
     url = input("输入目录页的网址:\r\n") + "\r\n"
     if url is not None and url.startswith(main_page):
         a = NovelSpider(url.strip())
         index = input("输入 [起始章节序号/起始章节名称]:\r\n")
         (file_name, begin_idx) = a.get_bgn_idx(index)
-        workers = input("输入并行数(不能超过5个):\r\n")
+        workers = input("输入并行数(不能超过10个):\r\n")
         if workers is not None and workers.isdigit():
-            if int(workers) > 5:
-                print("并发数不能超过5")
+            if int(workers) > 10:
+                print("并发数不能超过10")
                 sys.exit(0)
         else:
-            print("输入字符不合法,只能为5以下的整数")
+            print("输入字符不合法,只能为10以下的整数")
             sys.exit(0)
         if int(workers) < 2:
             a.spider(file_name, begin_idx)
         else:
             a.concurrent_spider(file_name, begin_idx, int(workers))
-        print("================小说下载完了==================")
+        end_time = time.time()
+        print("================小说下载完了,共耗时{}秒==================".format(format(end_time-begin_time, "0.2f")))
         # print(a.menu_url)
     else:
         print("错误的网址，目前只支持：" + main_page)
