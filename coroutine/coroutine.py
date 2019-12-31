@@ -13,7 +13,6 @@ def countdown(number, n):
         n -= 1
         print('Step3', n, '({})'.format(number))
 
-
 loop = asyncio.get_event_loop()
 tasks = [
     asyncio.ensure_future(countdown("A", 2)),
@@ -21,4 +20,3 @@ tasks = [
 loop.run_until_complete(asyncio.wait(tasks))
 loop.close()
 
-        print('Step2', n, '({})'.format(number), end="---->")

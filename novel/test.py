@@ -9,7 +9,7 @@ import time
 
 # 参数times用来模拟网络请求的时间
 def get_html(num):
-    sleep = 1  # random.randint(0, 5)
+    sleep = random.randint(0, 5)
     time.sleep(sleep)
     print("get page {} finished".format(num))
     return num
@@ -33,3 +33,5 @@ urls = [2, 3, 4, 5, 6, 7]  # 并不是真的url
 
 for data in executor.map(get_html, urls[2:]):
     print("in main: get page {} success".format(data))
+
+t
