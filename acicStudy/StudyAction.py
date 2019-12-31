@@ -3,7 +3,7 @@ import shelve
 import sys
 import time
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver import ActionChains
 
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -141,8 +141,8 @@ class StudyAction:
         course_count = 0
         with open("new-course-ids", 'w', encoding='utf-8') as f:
             # a.laypage_next
-            laypage_next = self.webbw.find_element_by_css_selector("a.laypage_next")
-            while laypage_next is not None and course_count < limit_course:
+            has_laypage_next = True
+            while has_laypage_next and course_count < limit_course:
                 course_cards = self.webbw.find_elements_by_css_selector("li.nc-course-card")
                 # print("course_cards size = "+str(len(course_cards)))
                 for course_card in course_cards:
@@ -156,12 +156,12 @@ class StudyAction:
                         print(record_value)
                         f.write(record_value + "\n")  # 追加内容 换行
                         course_count += 1
-                laypage_next.click()
-                time.sleep(10)
                 try:
                     laypage_next = self.webbw.find_element_by_css_selector("a.laypage_next")
-                except NoSuchElementException as ex:
-                    break
+                    laypage_next.click()
+                    time.sleep(10)
+                except WebDriverException as ex:
+                    has_laypage_next = False
 
     def __choose_course(self):
         tmp_cnt = 0
@@ -230,8 +230,11 @@ class StudyAction:
                 self.webbw.switch_to.window(desktop_handle)
 
     def __get_my_course(self, main_handle, course_handle):
-        if "NEW_COURSE_CENTER" not in self.webbw.current_url:
+
+        if course_handle != self.webbw.current_window_handle:
+            self.webbw.switch_to.window(course_handle)
             self.goto_course_page(main_handle)
+
         tmp_cnt = 0
         while True:
             try:
@@ -249,10 +252,46 @@ class StudyAction:
                 break
             time.sleep(self.sleep_sec_per)
 
+        # //label[data-type='NOT_STARTED']
+        # data-type STUDY
+        # tmp_cnt = 0
+        # while True:
+        #     try:
+        #         not_started = self.webbw.find_element_by_css_selector("label[data-type='NOT_STARTED']")
+        #         if not_started is not None and not_started.is_enabled():
+        #             not_started.click()
+        #             time.sleep(5)
+        #             break
+        #         else:
+        #             tmp_cnt += 1
+        #     except NoSuchElementException as ex:
+        #         print("click not_started error retry again")
+        #         tmp_cnt += 1
+        #     if tmp_cnt >= self.sleep_times:
+        #         break
+        #     time.sleep(self.sleep_sec_per)
+
+        tmp_cnt = 0
+        while True:
+            try:
+                studying = self.webbw.find_element_by_css_selector("label[data-type='STUDY']")
+                if studying is not None and studying.is_enabled():
+                    studying.click()
+                    time.sleep(5)
+                    break
+                else:
+                    tmp_cnt += 1
+            except NoSuchElementException as ex:
+                print("click studying error retry again")
+                tmp_cnt += 1
+            if tmp_cnt >= self.sleep_times:
+                break
+            time.sleep(self.sleep_sec_per)
+
         with open("my-studying-course-ids", 'w', encoding='utf-8') as f:
             # a.laypage_next
-            laypage_next = self.webbw.find_element_by_css_selector("a.laypage_next")
-            while laypage_next is not None and laypage_next.is_enabled():
+            has_laypage_next = True
+            while has_laypage_next:
                 my_course_cards = self.webbw.find_elements_by_css_selector("li.nc-course-card")
                 print("my_course_cards size = " + str(len(my_course_cards)))
                 for my_course_card in my_course_cards:
@@ -267,12 +306,12 @@ class StudyAction:
                             # progress_text = None
                     except NoSuchElementException as nee:
                         pass
-                laypage_next.click()
-                time.sleep(10)
                 try:
                     laypage_next = self.webbw.find_element_by_css_selector("a.laypage_next")
-                except NoSuchElementException as ex:
-                    break
+                    laypage_next.click()
+                    time.sleep(10)
+                except WebDriverException as ex:
+                    has_laypage_next = False
 
     def study_my_course(self, main_handle, course_handle):
         running_flag = True
@@ -312,6 +351,6 @@ if __name__ == "__main__":
     print("desktop-handle = " + desktop_handle)
     course_window_handle = action.goto_course_page(desktop_handle)
     print("course_window_handle = " + course_window_handle)
-    # action.get_all_course(0.3, 20)
+    action.get_all_course(0.2, 10)
     action.study_new_course(desktop_handle, course_window_handle)
     # action.study_my_course(desktop_handle, course_window_handle)
