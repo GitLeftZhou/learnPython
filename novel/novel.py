@@ -11,7 +11,8 @@ import requests
 
 class NovelSpider:
 
-    def __init__(self, menu_url):
+    def __init__(self, main_url, menu_url):
+        self.main_url = main_url
         self.menu_url = menu_url
         self.url_names = []
         self.urls = []
@@ -34,7 +35,7 @@ class NovelSpider:
             # 解析网页中的字符集定义
             tmp_html = bs4.BeautifulSoup(str(response.text), "html5lib")
             # print(tmpHtml)
-            meta_charsets = tmp_html.prettify().find_all(NovelSpider.__has_charset)
+            meta_charsets = tmp_html.find_all(NovelSpider.__has_charset)
             # 默认GBK，大多数小说网站都是用的GBK
             html_charset = "gbk"
             if meta_charsets is None or len(meta_charsets) == 0:
@@ -81,7 +82,6 @@ class NovelSpider:
                     if title_name is not None and title_name in name:
                         mark_index = len(self.url_names)
                     self.url_names.append(name)
-                    # self.urls.append(tag.children.get("href")) # 方法1
                     url = a_tag["href"]
                     self.urls.append(url)  # 方法2
 
@@ -99,9 +99,6 @@ class NovelSpider:
             res = self.request_url(cur_url)
             contentHtml = bs4.BeautifulSoup(str(res), "html.parser")
             content_obj: bs4.element.Tag = contentHtml.find("div", class_="yd_text2")
-            # print("content_obj is ", end=" ")
-            # print(type(content_obj))
-            # print(content_obj)
             content = content_obj.text
 
         except Exception as ex:
@@ -111,28 +108,6 @@ class NovelSpider:
                 self.__parse_content_html(cur_url, cnt)
             print("解析内容页时异常", ex)
         return content
-
-    def __auto_next(self):
-        """
-        获取下一个链接地址  1  从返回网页里面获取下一页   2   从目录页直接获取
-        采用目录页获取   使用方法1时  使用此方法
-        :return:
-        """
-        return ""
-
-    def __persistence(self, content):
-        """
-        例如抓数据存 nosql
-        :param content:
-        :return:
-        """
-        try:
-            # 其他方式的持久化
-            print("持久化")
-        except Exception as ex:
-            print("保存小说时发生异常", ex)
-            return False
-        return True
 
     def spider(self, novel_name, bgn_idx):
         """
@@ -151,7 +126,7 @@ class NovelSpider:
                 for i in range(bgn_idx, len(self.urls)):
                     next_url = self.urls[i]
                     print("抓取 " + self.url_names[i], end=" ")
-                    content = self.__parse_content_html(str(self.menu_url + "" + next_url))
+                    content = self.__parse_content_html_cc(str(self.main_url + "" + next_url))
                     # if "第" not in str(self.url_names[i]):
                     f.write("第" + str(i) + "章 ")
                     f.write(str(self.url_names[i]).replace("第", "").replace("章", "") + "\r\n")  # 写入章节名字
@@ -201,7 +176,7 @@ class NovelSpider:
         result_data = result_data + "第{}章 ".format(url_index)
         result_data = result_data + re.sub(r"第.*章", "", str(self.url_names[url_index])) + "\r\n"
         # 抓取内容并处理
-        content = self.__parse_content_html(str(self.menu_url + "" + target_url))
+        content = self.__parse_content_html_cc(str(self.main_url + "" + target_url))
         result_data = result_data + content.replace("\r", "").replace("\n", "").strip()
         # 返回内容
         print("抓取 [{}] 完成".format(self.url_names[url_index]))
@@ -220,20 +195,69 @@ class NovelSpider:
                 bgn_idx = int(idx)
             else:
                 title_name = idx
-        (novel_name, mark_idx) = self.__parse_menu_html(title_name)
+        (novel_name, mark_idx) = self.__parse_menu_html_cc(title_name)
         if mark_idx is not None and mark_idx > 0:
             bgn_idx = mark_idx
         print((novel_name, bgn_idx))
         return novel_name, bgn_idx
 
+    def __parse_menu_html_cc(self, title_name):
+        """
+        解析首页，拿到小说名字，第一章节链接
+        :return:
+        """
+        novel_name = ""
+        mark_index = 0
+        try:
+            res = self.request_url(self.menu_url)
+            menu_html = bs4.BeautifulSoup(str(res), "html.parser")
+            title = menu_html.select("div.maininfo div h1")
+            novel_name = str(title[0].text)
+            print("novel_name :    " + novel_name)
+            div_chapters = menu_html.select("div.main div.chapter")
+            li_lists = div_chapters[1].select("ul li")
+            for li_tag in li_lists:
+                a_tag = li_tag.find("a")
+                if a_tag is not None:
+                    name = a_tag.text
+                    if title_name is not None and title_name in name:
+                        mark_index = len(self.url_names)
+                    self.url_names.append(name)
+                    url = a_tag["href"]
+                    self.urls.append(url)  # 方法2
+
+        except Exception as ex:
+            print("解析首页时异常", ex)
+        return novel_name, mark_index
+
+    def __parse_content_html_cc(self, cur_url, *counts):
+        content = ""
+        if counts is not None and len(counts) > 0:
+            cnt = counts[0]
+        else:
+            cnt = 0
+        try:
+            res = self.request_url(cur_url)
+            content_page_html = bs4.BeautifulSoup(str(res), "html.parser")
+            content_obj: bs4.Tag = content_page_html.select("div.read")[0]
+            content_page_html = bs4.BeautifulSoup(str(content_obj.prettify().replace("<p>", "").replace("</p>", "")), "html.parser")
+            content = content_page_html.select("div")[0].text
+        except Exception as ex:
+            # 可能网络异常 重试5次
+            if cnt < 5:
+                cnt = cnt + 1
+                self.__parse_content_html_cc(cur_url, cnt)
+            print("解析内容页时异常", ex)
+        return content
+
 
 # 运行入口
 if __name__ == "__main__":
     begin_time = time.time()
-    main_page = "https://www.88dush"
+    main_page = "http://www.88dushu.cc"
     url = input("输入目录页的网址:\r\n") + "\r\n"
     if url is not None and url.startswith(main_page):
-        a = NovelSpider(url.strip())
+        a = NovelSpider(main_page, url.strip())
         index = input("输入 [起始章节序号/起始章节名称]:\r\n")
         (file_name, begin_idx) = a.get_bgn_idx(index)
         workers = input("输入并行数(不能超过10个,默认10个):\r\n")
