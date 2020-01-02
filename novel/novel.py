@@ -34,7 +34,7 @@ class NovelSpider:
             # 解析网页中的字符集定义
             tmp_html = bs4.BeautifulSoup(str(response.text), "html5lib")
             # print(tmpHtml)
-            meta_charsets = tmp_html.find_all(NovelSpider.__has_charset)
+            meta_charsets = tmp_html.prettify().find_all(NovelSpider.__has_charset)
             # 默认GBK，大多数小说网站都是用的GBK
             html_charset = "gbk"
             if meta_charsets is None or len(meta_charsets) == 0:

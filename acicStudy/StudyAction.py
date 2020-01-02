@@ -16,7 +16,7 @@ class StudyAction:
         self.sleep_sec_per: int = 1
         self.webbw = web_driver
 
-    def login(self):
+    def login(self, login_page):
 
         """
         登录网站
@@ -25,7 +25,7 @@ class StudyAction:
 
         try:
             # 打开首页
-            self.webbw.get('http://acic.21tb.com/')
+            self.webbw.get(login_page)
             self.webbw.maximize_window()
             main_window = self.webbw.current_window_handle
             # 点击登录
@@ -126,21 +126,41 @@ class StudyAction:
                     time.sleep(5)
                     actions = ActionChains(self.webbw)
                     my_page_url = self.webbw.find_element_by_css_selector("#loadStudyTask")
-                    actions.move_to_element(my_page_url)
-                    # self.webbw.find_element_by_css_selector("dl:nth-child(1) > dd:nth-child(3)").click()
+                    actions.move_to_element(my_page_url).perform()
                     break
                 else:
                     tmp_cnt += 1
             except NoSuchElementException as ex:
-                print("click course_center error retry again")
+                print("click course_center error retry again {}".format(tmp_cnt))
                 tmp_cnt += 1
             if tmp_cnt >= self.sleep_times:
                 break
             time.sleep(self.sleep_sec_per)
 
+        tmp_cnt = 0
+        while True:
+            try:
+                filters = self.webbw.find_elements_by_css_selector(".nc-filter-option > dd")
+                nocheck = filters[1].find_element_by_css_selector("label")
+                print("nocheck.text {}".format(nocheck.text))
+                if nocheck is not None and nocheck.text == "未选课程":
+                    nocheck.click()
+                    print("nocheck.click...")
+                    break
+                else:
+                    tmp_cnt += 1
+            except WebDriverException as ex:
+                print(ex.msg)
+                print("click courseInfo_courseStatus error retry again {}".format(tmp_cnt))
+                tmp_cnt += 1
+            if tmp_cnt >= self.sleep_times:
+                break
+            time.sleep(self.sleep_sec_per)
+
+        time.sleep(30)
+        print("begin to get course")
         course_count = 0
         with open("new-course-ids", 'w', encoding='utf-8') as f:
-            # a.laypage_next
             has_laypage_next = True
             while has_laypage_next and course_count < limit_course:
                 course_cards = self.webbw.find_elements_by_css_selector("li.nc-course-card")
@@ -148,20 +168,22 @@ class StudyAction:
                 for course_card in course_cards:
                     data_id = course_card.find_element_by_tag_name("a")
                     data_id_value = data_id.get_attribute("data-id")
-                    done_txt = course_card.find_element_by_css_selector("span > span").text
+                    # done_txt = course_card.find_element_by_css_selector("span > span").text
                     xue_shi = course_card.find_element_by_css_selector(".card-msg-period").text
                     xue_fen = course_card.find_element_by_css_selector(".card-msg-credit").text
-                    record_value = data_id_value + "," + done_txt + "," + xue_shi + "," + xue_fen
-                    if done_txt != "已选" and float(xue_shi) < limit_period:
+                    record_value = data_id_value + "," + xue_shi + "," + xue_fen
+                    if float(xue_shi) < limit_period:
                         print(record_value)
                         f.write(record_value + "\n")  # 追加内容 换行
                         course_count += 1
                 try:
                     laypage_next = self.webbw.find_element_by_css_selector("a.laypage_next")
                     laypage_next.click()
-                    time.sleep(10)
+                    time.sleep(30)
                 except WebDriverException as ex:
                     has_laypage_next = False
+
+        print("get course completed...")
 
     def __choose_course(self):
         tmp_cnt = 0
@@ -221,7 +243,7 @@ class StudyAction:
                 else:
                     print("CAN NOT GET CHOOSE COURSE HANDLE ERROR")
                 self.__choose_course()
-                course_time = int(3600 * (float(course_infos[2])))
+                course_time = int(3600 * (float(course_infos[1])))
                 print("studying the {}.....thread will sleep {}".format(course_id, course_time))
                 if course_time > 900:
                     course_time = 900
@@ -347,7 +369,8 @@ if __name__ == "__main__":
     sys.path.append(r"E:\PycharmProjects\learnPython")
     web_browser: WebDriver = webdriver.Chrome('E:\\myfile\\webbrowerdriver\\chromedriver_win32\\79\\chromedriver.exe')
     action = StudyAction(web_browser)
-    desktop_handle = action.login()
+    login_page = 'http://acic.21tb.com/'
+    desktop_handle = action.login(login_page)
     print("desktop-handle = " + desktop_handle)
     course_window_handle = action.goto_course_page(desktop_handle)
     print("course_window_handle = " + course_window_handle)
