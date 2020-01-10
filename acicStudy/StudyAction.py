@@ -55,7 +55,25 @@ class StudyAction:
             # 点击登录
             login_btn = self.webbw.find_element_by_css_selector('div.denglu > input[type=submit]')
             login_btn.click()
+
+            tmp_cnt = 0
+            while True:
+                try:
+                    go_into_btn = self.webbw.find_element_by_class_name("goIntoBtn")
+                    if go_into_btn is not None and go_into_btn.text == "进入学习平台":
+                        go_into_btn.click()
+                        break
+                    else:
+                        tmp_cnt += 1
+                except NoSuchElementException as ex:
+                    print("click goIntoBtn error retry again")
+                    tmp_cnt += 1
+                if tmp_cnt >= self.sleep_times:
+                    break
+                time.sleep(self.sleep_sec_per)
+
             return main_window
+
         except Exception as ex:
             print("login error")
             raise Exception("login error", ex)
@@ -68,33 +86,17 @@ class StudyAction:
         tmp_cnt = 0
         while True:
             try:
-                go_into_btn = self.webbw.find_element_by_class_name("goIntoBtn")
-                if go_into_btn is not None and go_into_btn.text == "进入学习平台":
-                    go_into_btn.click()
-                    break
-                else:
-                    tmp_cnt += 1
-            except NoSuchElementException as ex:
-                print("click goIntoBtn error retry again")
-                tmp_cnt += 1
-            if tmp_cnt >= self.sleep_times:
-                break
-            time.sleep(self.sleep_sec_per)
-
-        tmp_cnt = 0
-        while True:
-            try:
                 # dr.find_element_by_xpath("//div[@class='codelist codelist-desktop cate3']
                 #                                //h4[contains(text(),'Python3')]").click()
                 # document.querySelector("div.tbc-desktop-slide.tbc-tabset > div > div:nth-child(2) > div > span")
 
                 course_center = self.webbw.find_element_by_css_selector("div[_shortcutid='new_course_center']")
-                if course_center is not None:
+                if course_center is not None and course_center.is_enabled():
                     course_center.click()
                     break
                 else:
                     tmp_cnt += 1
-            except NoSuchElementException as ex:
+            except WebDriverException as ex:
                 print("click course_center error retry again")
                 tmp_cnt += 1
             if tmp_cnt >= self.sleep_times:
@@ -115,6 +117,12 @@ class StudyAction:
             self.webbw.switch_to.window(main_handle)
 
     def get_all_course(self, limit_period, limit_course):
+        """
+        获取待学习的课程
+        :param limit_period: 最大学时
+        :param limit_course: 最大课程数量
+        :return:
+        """
         tmp_cnt = 0
         while True:
             try:
@@ -221,6 +229,12 @@ class StudyAction:
             time.sleep(self.sleep_sec_per)
 
     def study_new_course(self, desktop, course_window):
+        """
+        学习新课程
+        :param desktop: 首页句柄
+        :param course_window: 课程页面句柄
+        :return:
+        """
 
         with open("new-course-ids", 'r', encoding='utf-8') as f:
             for line in f.readlines():
@@ -251,11 +265,28 @@ class StudyAction:
                 self.webbw.close()
                 self.webbw.switch_to.window(desktop_handle)
 
+    def __close_tab_page(self, main_handle):
+        """
+        关闭所有非首页的标签页
+        :param main_handle:
+        :return:
+        """
+        try:
+            # 获取当前所有开启窗口的句柄
+            all_handles = self.webbw.window_handles
+            for handle in all_handles:
+                if handle != main_handle:  # 获取到与当前窗口不一样的窗口
+                    self.webbw.switch_to.window(handle)  # 切换
+                    self.webbw.close()
+            self.webbw.switch_to.window(main_handle)
+        except WebDriverException as wde:
+            print("__close_tab_page has been error as : {}".format(wde.msg))
+
     def __get_my_course(self, main_handle, course_handle):
 
-        if course_handle != self.webbw.current_window_handle:
-            self.webbw.switch_to.window(course_handle)
-            self.goto_course_page(main_handle)
+        if course_handle is None:
+            self.__close_tab_page(main_handle)
+        new_course_handle = self.goto_course_page(main_handle)
 
         tmp_cnt = 0
         while True:
@@ -267,7 +298,7 @@ class StudyAction:
                     break
                 else:
                     tmp_cnt += 1
-            except NoSuchElementException as ex:
+            except WebDriverException as ex:
                 print("click my_course_center error retry again")
                 tmp_cnt += 1
             if tmp_cnt >= self.sleep_times:
@@ -303,7 +334,7 @@ class StudyAction:
                     break
                 else:
                     tmp_cnt += 1
-            except NoSuchElementException as ex:
+            except WebDriverException as ex:
                 print("click studying error retry again")
                 tmp_cnt += 1
             if tmp_cnt >= self.sleep_times:
@@ -335,10 +366,20 @@ class StudyAction:
                 except WebDriverException as ex:
                     has_laypage_next = False
 
-    def study_my_course(self, main_handle, course_handle):
+        return new_course_handle
+
+    def study_my_course(self, main_handle, course_handle, period_secends):
+        """
+        学习已选课程
+        :param main_handle:
+        :param course_handle:
+        :param period_secends: 每个课程学习时间
+        :return:
+        """
         running_flag = True
+        tmp_handle = course_handle
         while running_flag:
-            self.__get_my_course(main_handle, course_handle)
+            new_course_handle = self.__get_my_course(main_handle, tmp_handle)
             with open("my-studying-course-ids", 'r', encoding='utf-8') as fx:
                 id_lines = fx.readlines()
                 if len(id_lines) > 0:
@@ -352,17 +393,30 @@ class StudyAction:
                         # 获取当前所有开启窗口的句柄
                         all_handles = self.webbw.window_handles
                         for handle in all_handles:
-                            if handle != main_handle and handle != course_handle:  # 获取到与当前窗口不一样的窗口
+                            if handle != main_handle and handle != course_handle and handle != new_course_handle:  # 获取到与当前窗口不一样的窗口
                                 self.webbw.switch_to.window(handle)  # 切换
                                 time.sleep(2)
-                        course_time = 600
+                        # 部分课程不是自动播放，需要点击播放按钮
+                        tmp_cnt = 0
+                        while True and tmp_cnt <= self.sleep_times:
+                            try:
+                                prism_big_play_btn = self.webbw.find_element_by_css_selector("div.outter")
+                                if prism_big_play_btn is not None and prism_big_play_btn.is_enabled():
+                                    prism_big_play_btn.click()
+                                    break
+                                else:
+                                    tmp_cnt += 1
+                            except WebDriverException as ex:
+                                # print("There is no play button in current page .. {}".format(ex.msg))
+                                tmp_cnt += 1
+                            time.sleep(2)
+                        # 程序暂停，课程自动播放
+                        course_time = period_secends
                         print("studying the {}.....thread will sleep {}".format(course_id, course_time))
                         time.sleep(course_time)
-                        # self.webbw.close()
-                        # time.sleep(10)
-                        # self.webbw.switch_to.window(desktop_handle)
                 else:
                     running_flag = False
+            tmp_handle = None
 
 
 if __name__ == "__main__":
@@ -374,6 +428,10 @@ if __name__ == "__main__":
     print("desktop-handle = " + desktop_handle)
     course_window_handle = action.goto_course_page(desktop_handle)
     print("course_window_handle = " + course_window_handle)
-    action.get_all_course(0.2, 10)
-    action.study_new_course(desktop_handle, course_window_handle)
-    # action.study_my_course(desktop_handle, course_window_handle)
+    # 选新课学习
+    # action.get_all_course(0.2, 10)
+    # action.study_new_course(desktop_handle, course_window_handle)
+    # 学习已选课程
+    action.study_my_course(desktop_handle, course_window_handle, 370)
+    # 退出
+    web_browser.quit()
